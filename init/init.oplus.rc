@@ -80,6 +80,7 @@ on boot
     chown system system /sys/kernel/oplus_display/hbm
     chown system system /sys/kernel/oplus_display/notify_fppress
     chown system system /sys/kernel/oplus_display/panel_serial_number
+    chown system system /sys/kernel/oplus_display/power_status
 
     # OIS
     chown cameraserver cameraserver /sys/kernel/ois_control/dump_registers
