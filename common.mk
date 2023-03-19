@@ -269,8 +269,6 @@ PRODUCT_COPY_FILES += \
     frameworks/av/media/libstagefright/data/media_codecs_google_video_le.xml:$(TARGET_COPY_OUT_VENDOR)/etc/media_codecs_google_video_le.xml
 
 PRODUCT_PACKAGES += \
-    libavservices_minijail \
-    libavservices_minijail.vendor \
     libcodec2_hidl@1.0.vendor
 
 # Net
@@ -333,29 +331,30 @@ PRODUCT_COPY_FILES += \
 # Partitions
 PRODUCT_USE_DYNAMIC_PARTITIONS := true
 
-# Perf
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/task_profiles.json:$(TARGET_COPY_OUT_VENDOR)/etc/task_profiles.json
-
+# Platform
+TARGET_BOARD_PLATFORM := lahaina
+TARGET_KERNEL_VERSION := 5.4
 # Power
+QCOM_COMMON_PATH := device/qcom/common
+$(call inherit-product, $(QCOM_COMMON_PATH)/system/perf/qti-perf.mk)
+$(call inherit-product, $(QCOM_COMMON_PATH)/vendor/perf-legacy/qti-perf-legacy.mk)
+$(call inherit-product, vendor/qcom/opensource/power/power-vendor-product.mk)
+
 PRODUCT_PACKAGES += \
-    android.hardware.power-service-qti \
     android.hardware.power@1.2.vendor \
     vendor.qti.hardware.perf@2.2.vendor
 
-# Performance
-PRODUCT_COPY_FILES += \
-    $(LOCAL_PATH)/configs/msm_irqbalance.conf:$(TARGET_COPY_OUT_VENDOR)/etc/msm_irqbalance.conf
+PRODUCT_VENDOR_PROPERTIES += \
+    ro.vendor.beluga.p=0x3 \
+    ro.vendor.beluga.c=0x4800 \
+    ro.vendor.beluga.s=0x900 \
+    ro.vendor.beluga.t=0x240
 
 # QMI
 PRODUCT_PACKAGES += \
     libjson \
     libqti_vndfwk_detect.vendor \
     libvndfwk_detect_jni.qti.vendor
-
-# QTI service tracker
-PRODUCT_PACKAGES += \
-    vendor.qti.hardware.servicetracker@1.2.vendor
 
 # RIL
 PRODUCT_PACKAGES += \
@@ -394,7 +393,9 @@ PRODUCT_SHIPPING_API_LEVEL := 30
 # Soong namespaces
 PRODUCT_SOONG_NAMESPACES += \
     $(LOCAL_PATH) \
-    hardware/oplus
+    hardware/oplus \
+    device/qcom/common \
+    vendor/qcom/common
 
 # Storage
 $(call inherit-product, $(SRC_TARGET_DIR)/product/emulated_storage.mk)
