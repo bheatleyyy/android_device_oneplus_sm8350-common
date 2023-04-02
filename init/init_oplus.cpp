@@ -63,8 +63,8 @@ void vendor_load_properties() {
         // porsche
 	case 2:
             OverrideProperty("ro.product.product.model", "RMX3312");
-            OverrideProperty("bluetooth.device.default_name", "Realme GT 2")
-            OverrideProperty("vendor.usb.product_string", "Realme GT 2")
+            OverrideProperty("bluetooth.device.default_name", "Realme GT 2");
+            OverrideProperty("vendor.usb.product_string", "Realme GT 2");
             break;
         case 11: // CN
             if (device == "OnePlus9") {
